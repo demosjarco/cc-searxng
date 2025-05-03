@@ -23,7 +23,7 @@
 	"homepage": "https://github.com/demosjarco/cc-searxng#readme",
 	"prettier": "@demosjarco/prettier-config",
 	"dependencies": {
-		"hono": "^4.7.7"
+		"hono": "^4.7.8"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20250503.0",
