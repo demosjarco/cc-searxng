@@ -1419,7 +1419,7 @@ engines:
   - name: openmeteo
     engine: open_meteo
     shortcut: om
-    disabled: true
+    disabled: false
 
   # - name: opensemanticsearch
   #   engine: opensemantic
@@ -1727,7 +1727,7 @@ engines:
   - name: rottentomatoes
     engine: rottentomatoes
     shortcut: rt
-    disabled: true
+    disabled: false
 
   # Required dependency: redis
   # - name: myredis
@@ -2207,7 +2207,7 @@ engines:
     engine: wolframalpha_noapi
     timeout: 6.0
     categories: general
-    disabled: true
+    disabled: false
 
   - name: dictzone
     engine: dictzone
