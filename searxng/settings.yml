@@ -598,7 +598,7 @@ engines:
     cf_account_id: $CF_ACCOUNT_ID
     cf_ai_api: $CF_API_TOKEN
     # create your ai gateway by https://developers.cloudflare.com/ai-gateway/get-started/creating-gateway/
-    cf_ai_gateway: 'searxng'
+    # cf_ai_gateway: 'searxng'
     # find the model name from https://developers.cloudflare.com/workers-ai/models/#text-generation
     cf_ai_model: '@cf/meta/llama-4-scout-17b-16e-instruct'
     # custom your preferences
