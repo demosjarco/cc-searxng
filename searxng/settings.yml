@@ -1516,6 +1516,7 @@ engines:
     # country
     url: https://thepiratebay.org/
     timeout: 3.0
+    disabled: true
 
   - name: pixiv
     shortcut: pv
