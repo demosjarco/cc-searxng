@@ -68,6 +68,3 @@ jobs:
           GIT_HASH: ${{ github.sha }}
           CF_API_TOKEN: ${{ secrets.API_CF_API_TOKEN }}
           CF_COMMUNITY_KEY: ${{ secrets.CF_COMMUNITY_KEY }}
-      - run: npm run publish
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.WORKER_DEPLOY_CF_API_TOKEN }}
