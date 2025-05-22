@@ -6,13 +6,6 @@
 
 FROM --platform=linux/amd64 searxng/searxng:2025.5.22-d29cf64@sha256:776756d384e129f7ef9ec4a3fc7c8429035d072e8610f23db7cc6f2e0cb33452
 
-RUN --mount=type=cache,target=/var/cache/apk apk update
-RUN --mount=type=cache,target=/var/cache/apk apk upgrade
-RUN --mount=type=cache,target=/var/cache/apk apk cache clean
-RUN --mount=type=cache,target=/var/cache/apk apk del --purge
-
-RUN --mount=type=cache,target=/root/.cache/pip pip cache purge
-
 # Generate default configuration files
 COPY --link searxng/settings.yml /etc/searxng/settings.yml
 COPY --link searxng/uwsgi.ini /etc/searxng/uwsgi.ini
