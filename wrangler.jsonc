@@ -10,7 +10,7 @@
 	"minify": true,
 	"upload_source_maps": true,
 	"observability": { "enabled": true },
-	"limits": { "cpu_ms": 30000 },
+	"limits": { "cpu_ms": 10 },
 	"containers": [
 		{
 			"class_name": "ContainerSidecar",
