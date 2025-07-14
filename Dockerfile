@@ -4,7 +4,7 @@
 # https://github.com/searxng/searxng/blob/master/Dockerfile
 # https://github.com/searxng/searxng-docker/blob/master/docker-compose.yaml
 
-FROM --platform=linux/amd64 searxng/searxng:2025.6.3-b73ac81@sha256:72cf9da16e06e571fbb5d4453fd9c99b33657caeeecb3d3d7d22907d52c24090
+FROM --platform=linux/amd64 searxng/searxng:2025.7.11-a48ec8a@sha256:5182fb2330769e188b38d6798f76540b698a283a6984d72ae5925a76ebec1250
 
 # Generate default configuration files
 COPY --link searxng/settings.yml /etc/searxng/settings.yml
