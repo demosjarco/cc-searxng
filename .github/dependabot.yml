@@ -27,6 +27,7 @@ updates:
         patterns:
           - 'actions/cache'
           - 'actions/cache/*'
+          - 'awalsh128/cache-apt-pkgs-action'
       sast:
         patterns:
           - 'github/codeql-*'
