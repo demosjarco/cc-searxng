@@ -41,7 +41,16 @@ export default {
 		// Debug
 		app.use('*', (c, next) => import('hono/timing').then(({ timing }) => timing()(c, next)));
 
-		app.all('*', (c) => import('@cloudflare/containers').then(({ getRandom }) => getRandom(c.env.CONTAINER_SIDECAR, 10)).then((stub) => stub.fetch(c.req.raw)));
+		app.all('*', (c) =>
+			import('@cloudflare/containers')
+				.then(({ getRandom }) => getRandom(c.env.CONTAINER_SIDECAR, 10))
+				.then((stub) => {
+					const url = new URL(c.req.url);
+					url.protocol = 'http:';
+
+					return stub.fetch(url, c.req.raw.clone());
+				}),
+		);
 
 		return app.fetch(request, env, ctx);
 	},
