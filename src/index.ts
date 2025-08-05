@@ -1,14 +1,28 @@
-import { WorkerEntrypoint } from 'cloudflare:workers';
+import { Container } from '@cloudflare/containers';
 import type { EnvVars, HonoVariables } from '~/types.mjs';
 
-export { ContainerSidecar } from '~do/index.mjs';
+export class ContainerSidecar extends Container<EnvVars> {
+	override defaultPort = 8080;
+	override enableInternet = true;
 
-export default class extends WorkerEntrypoint<EnvVars> {
-	override async fetch(request: Request): Promise<Response> {
+	override onStart() {
+		console.debug('Container successfully started');
+	}
+
+	override onStop() {
+		console.debug('Container successfully shut down');
+	}
+
+	override onError(error: unknown) {
+		console.error('Container error:', error);
+	}
+}
+
+export default {
+	async fetch(request, env, ctx) {
 		const app = await import('hono').then(({ Hono }) => new Hono<{ Bindings: EnvVars; Variables: HonoVariables }>());
 
 		// Security
-		app.use('*', (c, next) => import('hono/secure-headers').then(({ secureHeaders }) => secureHeaders()(c, next)));
 		app.use('*', (c, next) =>
 			/**
 			 * Measured in kb
@@ -29,6 +43,6 @@ export default class extends WorkerEntrypoint<EnvVars> {
 
 		app.all('*', (c) => import('@cloudflare/containers').then(({ getRandom }) => getRandom(c.env.CONTAINER_SIDECAR, 10)).then((stub) => stub.fetch(c.req.raw)));
 
-		return app.fetch(request, this.env, this.ctx);
-	}
-}
+		return app.fetch(request, env, ctx);
+	},
+} as ExportedHandler<EnvVars>;

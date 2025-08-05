@@ -1,6 +1,6 @@
 import type { SecureHeadersVariables } from 'hono/secure-headers';
 import type { TimingVariables } from 'hono/timing';
-import type { ContainerSidecar } from '~do/index.mjs';
+import type { ContainerSidecar } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface EnvVars extends Secrets, Bindings, Record<string, any> {
