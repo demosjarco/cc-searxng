@@ -39,9 +39,6 @@ export default {
 			),
 		);
 
-		// Debug
-		app.use('*', (c, next) => import('hono/timing').then(({ timing }) => timing()(c, next)));
-
 		app.all('*', (c) =>
 			import('@cloudflare/containers')
 				.then(({ getRandom }) => getRandom(c.env.CONTAINER_SIDECAR, 10))
