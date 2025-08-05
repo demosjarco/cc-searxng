@@ -2,7 +2,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "searxng",
 	"main": "src/index.ts",
-	"compatibility_date": "2025-07-12",
+	"compatibility_date": "2025-07-30",
 	"compatibility_flags": ["nodejs_compat"],
 	"route": { "pattern": "search.demosjarco.dev", "custom_domain": true },
 	"workers_dev": false,
