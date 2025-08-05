@@ -39,16 +39,7 @@ export default {
 			),
 		);
 
-		app.all('*', (c) =>
-			import('@cloudflare/containers')
-				.then(({ getRandom }) => getRandom(c.env.CONTAINER_SIDECAR, 10))
-				.then((stub) => {
-					const url = new URL(c.req.url);
-					url.protocol = 'http:';
-
-					return stub.fetch(url, c.req.raw.clone());
-				}),
-		);
+		app.all('*', (c) => import('@cloudflare/containers').then(({ getRandom }) => getRandom(c.env.CONTAINER_SIDECAR, 10)).then((stub) => stub.fetch(c.req.raw)));
 
 		return app.fetch(request, env, ctx);
 	},
