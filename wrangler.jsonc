@@ -13,14 +13,10 @@
 	"limits": { "cpu_ms": 10 },
 	"containers": [
 		{
-			"class_name": "ContainerSidecar",
-			"configuration": {
-				"network": { "mode": "private" },
-				"vcpu": 2,
-				"memory": "4GB"
-			},
 			"image": "./Dockerfile",
-			"instances": 9,
+			"class_name": "ContainerSidecar",
+			"instance_type": "basic",
+			"max_instances": 10,
 			"name": "searxng"
 		}
 	],

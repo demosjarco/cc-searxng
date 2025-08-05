@@ -1,54 +1,19 @@
-import { DurableObject } from 'cloudflare:workers';
+import { Container } from '@cloudflare/containers';
 import type { EnvVars } from '~/types.mjs';
-import { proxyFetch, startAndWaitForPort } from '~do/containerHelpers.mjs';
 
-export class ContainerSidecar<E extends EnvVars = EnvVars> extends DurableObject<E> {
-	public static OPEN_CONTAINER_PORT = 8080;
-	private startupTime = 0;
+export class ContainerSidecar<E extends EnvVars = EnvVars> extends Container<E> {
+	override defaultPort = 8080;
+	override enableInternet = true;
 
-	constructor(ctx: ContainerSidecar<E>['ctx'], env: ContainerSidecar<E>['env']) {
-		super(ctx, env);
-
-		if (ctx.container) {
-			// eslint-disable-next-line @typescript-eslint/no-floating-promises
-			ctx.blockConcurrencyWhile(async () => {
-				const startTime = performance.now();
-				await startAndWaitForPort(ctx.container!, ContainerSidecar.OPEN_CONTAINER_PORT, undefined, {
-					CF_ACCOUNT_ID: env.CF_ACCOUNT_ID,
-					CF_API_TOKEN: env.CF_API_TOKEN,
-				});
-				// Don't count the extra 300ms delay from `startAndWaitForPort`'s `setTimeout`
-				this.startupTime = performance.now() - startTime - 300;
-			});
-		} else {
-			throw new Error('Container context not available');
-		}
+	override onStart() {
+		console.debug('Container successfully started');
 	}
 
-	private static buildServerTimingHeader(metrics: Record<string, number>): string {
-		return Object.entries(metrics)
-			.map(([name, dur]) => `${name};dur=${dur.toFixed(20).replace(/\.0*$/i, '')}`)
-			.join(', ');
+	override onStop() {
+		console.debug('Container successfully shut down');
 	}
 
-	override async fetch(request: Request) {
-		if (this.ctx.container) {
-			const start = performance.now();
-			const response = await proxyFetch(this.ctx.container, request, ContainerSidecar.OPEN_CONTAINER_PORT);
-			const duration = performance.now() - start;
-
-			// New response for mutable headers (no body manipulation)
-			const newResponse = new Response(response.body, response);
-			newResponse.headers.set('Server-Timing-CC', ContainerSidecar.buildServerTimingHeader({ startup: this.startupTime, proxy: duration }));
-
-			return newResponse;
-		} else {
-			return new Response('Container not available', {
-				status: 503,
-				headers: {
-					'Content-Type': 'text/plain',
-				},
-			});
-		}
+	override onError(error: unknown) {
+		console.error('Container error:', error);
 	}
 }
