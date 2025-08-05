@@ -4,6 +4,7 @@ import type { EnvVars, HonoVariables } from '~/types.mjs';
 export class ContainerSidecar extends Container<EnvVars> {
 	override defaultPort = 8080;
 	override enableInternet = true;
+	override sleepAfter = '15m';
 
 	override onStart() {
 		console.debug('Container successfully started');
