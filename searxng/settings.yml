@@ -600,9 +600,9 @@ engines:
     # create your ai gateway by https://developers.cloudflare.com/ai-gateway/get-started/creating-gateway/
     cf_ai_gateway: 'searxng'
     # find the model name from https://developers.cloudflare.com/workers-ai/models/#text-generation
-    cf_ai_model: '@cf/meta/llama-4-scout-17b-16e-instruct'
+    cf_ai_model: '@cf/openai/gpt-oss-120b'
     # custom your preferences
-    cf_ai_model_display_name: 'Llama 4 Scout (Workers AI)'
+    cf_ai_model_display_name: 'GPT OSS (Workers AI)'
     # cf_ai_model_assistant: 'prompts_for_assistant_role'
     cf_ai_model_system: 'You are a helpful assistant in a search engine who is honest and direct about any question from the user. Provide concise and helpful information in plain text only. No formatting, markdown, code or anything else other than plaintext'
     disabled: false
