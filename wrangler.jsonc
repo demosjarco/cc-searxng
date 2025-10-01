@@ -16,7 +16,11 @@
 		{
 			"image": "./Dockerfile",
 			"class_name": "ContainerSidecar",
-			"instance_type": "basic",
+			"instance_type": {
+				"vcpu": 1,
+				"memory_mib": 1024,
+				"disk_mb": 4000
+			},
 			"max_instances": 10,
 			"name": "searxng"
 		}
