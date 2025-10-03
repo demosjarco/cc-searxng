@@ -16,7 +16,7 @@
 		{
 			"image": "./Dockerfile",
 			"class_name": "ContainerSidecar",
-			"instance_type": "basic",
+			"instance_type": "standard-2",
 			"max_instances": 10,
 			"name": "searxng"
 		}
