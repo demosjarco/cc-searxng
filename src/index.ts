@@ -39,7 +39,7 @@ export default {
 			),
 		);
 
-		app.all('*', (c) => import('@cloudflare/containers').then(({ getRandom }) => getRandom(c.env.CONTAINER_SIDECAR, 10)).then((stub) => stub.fetch(c.req.raw)));
+		app.all('*', (c) => import('@cloudflare/containers').then(({ getRandom }) => getRandom(c.env.CONTAINER_SIDECAR, 10)).then((stub) => stub.fetch(c.req.raw.url, c.req.raw)));
 
 		return app.fetch(request, env, ctx);
 	},
