@@ -2597,6 +2597,20 @@ engines:
     api_username: 'free999'
     api_key: 'CF_COMMUNITY_KEY'
 
+  - name: woot
+    engine: woot
+    shortcut: woot
+    categories: [general]
+    limit: 424 # It crashes beyond 424
+    disabled: true
+    categories_filter:
+      - home
+      - tech
+      - pc
+      - tools
+      - sport
+      - grocery
+
 # Doku engine lets you access to any Doku wiki instance:
 # A public one or a privete/corporate one.
 #  - name: ubuntuwiki

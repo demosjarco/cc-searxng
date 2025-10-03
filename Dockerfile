@@ -9,6 +9,8 @@ FROM --platform=linux/amd64 searxng/searxng:2025.10.3-c6f1ea12b@sha256:043de21af
 # Generate default configuration files
 COPY --link searxng/settings.yml /etc/searxng/settings.yml
 COPY --link searxng/uwsgi.ini /etc/searxng/uwsgi.ini
+COPY --link searxng/engines/woot.py /etc/searxng/engines/woot.py
+COPY --link searxng/engines/woot.py /usr/local/searxng/searx/engines/woot.py
 
 ENV SEARXNG_BASE_URL="https://search.demosjarco.dev"
 
