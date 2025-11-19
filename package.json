@@ -6,7 +6,9 @@
 		"fmt:fix": "prettier --write .",
 		"lint": "eslint **/*.*ts*",
 		"lint:fix": "npm run lint -- --fix",
-		"start": "wrangler dev"
+		"start": "wrangler dev",
+		"build:types:cf": "wrangler types",
+		"postbuild:types:cf": "prettier --write worker-configuration.d.ts"
 	},
 	"repository": {
 		"type": "git",
