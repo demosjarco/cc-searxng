@@ -28,6 +28,10 @@ updates:
           - 'actions/cache'
           - 'actions/cache/*'
           - 'awalsh128/cache-apt-pkgs-action'
+      ci-cd:
+        patterns:
+          - 'changesets/*'
+          - 'dependabot/*'
       sast:
         patterns:
           - 'github/codeql-*'
@@ -36,6 +40,10 @@ updates:
           - 'microsoft/security-devops-action'
           - 'microsoft/DevSkim-Action'
           - 'ossf/*'
+      setup:
+        patterns:
+          - 'actions/checkout'
+          - 'actions/setup-*'
   - package-ecosystem: 'npm'
     directory: '/'
     registries: '*'
