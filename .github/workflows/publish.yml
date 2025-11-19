@@ -43,7 +43,8 @@ jobs:
           node-version: lts/*
           check-latest: true
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --ignore-scripts
+      - run: npm run-script install --if-present
       - run: echo "wrangler_version=$(npm ls wrangler --depth=0 --json | jq -r '.dependencies.wrangler.version')" >> $GITHUB_OUTPUT
         id: npm_wrangler_version
       - name: Set secrets in settings.yml
