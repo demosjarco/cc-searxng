@@ -27,11 +27,11 @@
 		"hono": "^4.10.6"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20251119.0",
+		"@cloudflare/workers-types": "^4.20251213.0",
 		"@demosjarco/prettier-config": "^1.0.2",
 		"@eslint/js": "^9.39.1",
 		"@microsoft/eslint-formatter-sarif": "^3.1.0",
-		"@types/node": "^24.10.1",
+		"@types/node": "^25.0.2",
 		"eslint": "^9.39.1",
 		"eslint-config-prettier": "^10.1.8",
 		"prettier": "^3.6.2",
