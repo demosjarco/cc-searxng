@@ -1,7 +1,7 @@
 import { Container, getRandom } from '@cloudflare/containers';
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
-import type { EnvVars, HonoVariables } from '~/types.mjs';
+import type { EnvVars } from '~/types.mjs';
 
 export class ContainerSidecar extends Container<EnvVars> {
 	override defaultPort = 8080;
@@ -23,7 +23,7 @@ export class ContainerSidecar extends Container<EnvVars> {
 
 export default {
 	async fetch(request, env, ctx) {
-		const app = new Hono<{ Bindings: EnvVars; Variables: HonoVariables }>();
+		const app = new Hono<{ Bindings: EnvVars }>();
 
 		// Security
 		app.use(
