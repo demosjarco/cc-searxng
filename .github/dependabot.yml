@@ -53,24 +53,12 @@ updates:
     versioning-strategy: increase
     open-pull-requests-limit: 999
     groups:
-      hono:
-        patterns:
-          - 'hono'
-          - '@hono/*'
       cloudflare:
         patterns:
           - 'cloudflare'
           - '@cloudflare/*'
           - 'wrangler'
         exclude-patterns:
-          - '@cloudflare/workers-types'
-      typescript-core:
-        patterns:
-          - 'typescript'
-          - 'tsx'
-      typescript-types:
-        patterns:
-          - '@types/*'
           - '@cloudflare/workers-types'
       code-management:
         patterns:
@@ -83,3 +71,15 @@ updates:
           - '@microsoft/eslint-formatter-sarif'
           - '@eslint/*'
           - 'typescript-eslint'
+      hono:
+        patterns:
+          - 'hono'
+          - '@hono/*'
+      typescript-core:
+        patterns:
+          - 'typescript'
+          - 'tsx'
+      typescript-types:
+        patterns:
+          - '@types/*'
+          - '@cloudflare/workers-types'
