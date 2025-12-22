@@ -141,6 +141,7 @@ dist
 # Cloudflare
 .dev.vars
 .wrangler
+!/dist
 
 # Random
 .idea

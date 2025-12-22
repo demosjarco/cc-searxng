@@ -12,6 +12,11 @@
 	"upload_source_maps": true,
 	"observability": { "logs": { "enabled": true }, "traces": { "enabled": true } },
 	"limits": { "cpu_ms": 10 },
+	// Bindings
+	"assets": {
+		"directory": "./dist",
+		"run_worker_first": false
+	},
 	"containers": [
 		{
 			"image": "./Dockerfile",

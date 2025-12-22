@@ -8,7 +8,9 @@
 		"lint:fix": "npm run lint -- --fix",
 		"start": "wrangler dev",
 		"build:types:cf": "wrangler types",
-		"postbuild:types:cf": "prettier --write worker-configuration.d.ts"
+		"postbuild:types:cf": "prettier --write worker-configuration.d.ts",
+		"build:static": "tsx staticApi.mts",
+		"publish:static": "tsx apiGateway.mts"
 	},
 	"repository": {
 		"type": "git",
@@ -24,17 +26,23 @@
 	"prettier": "@demosjarco/prettier-config",
 	"dependencies": {
 		"@cloudflare/containers": "^0.0.31",
-		"hono": "^4.11.1"
+		"@hono/zod-openapi": "^1.2.0",
+		"hono": "^4.11.1",
+		"validator": "^13.15.26"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20251221.0",
 		"@demosjarco/prettier-config": "^1.0.2",
 		"@eslint/js": "^9.39.2",
 		"@microsoft/eslint-formatter-sarif": "^3.1.0",
+		"@scalar/openapi-to-markdown": "^0.3.12",
 		"@types/node": "^25.0.3",
+		"@types/validator": "^13.15.10",
+		"cloudflare": "^5.2.0",
 		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
 		"prettier": "^3.7.4",
+		"tsx": "^4.21.0",
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.50.1",
 		"wrangler": "^4.56.0"

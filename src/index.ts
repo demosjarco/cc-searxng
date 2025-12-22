@@ -24,7 +24,9 @@ export default {
 			}),
 		);
 
-		app.all('*', (c) => getRandom(c.env.CONTAINER_SIDECAR, 10).then((stub) => stub.fetch(c.req.raw.url, c.req.raw)));
+		await import('~routes/index.mjs').then(({ default: baseApp }) => app.route('/', baseApp));
+
+		app.all('*', (c) => getRandom(c.env.CONTAINER_SIDECAR, 10).then((stub) => stub.fetch(c.req.url, c.req.raw)));
 
 		return app.fetch(request, env, ctx);
 	},

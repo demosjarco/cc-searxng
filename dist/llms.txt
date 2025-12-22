@@ -1,0 +1,520 @@
+# DemosJarco Search API
+
+- **OpenAPI Version:** `3.1.0`
+- **API Version:** `PRODUCTION`
+
+## Servers
+
+- **URL:** 
+
+## Operations
+
+### GET /search
+
+- **Method:** `GET`
+- **Path:** `/search`
+
+#### Responses
+
+##### Status: 200 Return results in the requested format.
+
+###### Content-Type: application/json
+
+- **`answers` (required)**
+
+  `array` — Direct answers returned by engines
+
+  **Items:**
+
+  - **`answer` (required)**
+
+    `string` — Extracted answer text
+
+  - **`engine` (required)**
+
+    `string` — Engine providing the answer
+
+  - **`url` (required)**
+
+    `string`, format: `uri` — Answer source URL
+
+  - **`parsed_url`**
+
+    `array` — Parsed URL parts
+
+    **Items:**
+
+    `string`
+
+  - **`template`**
+
+    `string` — Template used to render the answer
+
+  - **`thumbnail`**
+
+    `string` — Thumbnail URL if present
+
+  - **`title`**
+
+    `string` — Answer title if present
+
+- **`corrections` (required)**
+
+  `array` — Query corrections suggested by engines
+
+  **Items:**
+
+- **`infoboxes` (required)**
+
+  `array` — Infoboxes compiled from engines
+
+  **Items:**
+
+  - **`infobox` (required)**
+
+    `string` — Infobox title
+
+  - **`attributes`**
+
+    `array` — Attributes contained in the infobox
+
+    **Items:**
+
+    - **`label` (required)**
+
+      `string` — Attribute label
+
+    - **`value` (required)**
+
+      `string` — Attribute value
+
+    - **`entity`**
+
+      `string` — Wikidata entity ID if available
+
+    - **`image`**
+
+      `object` — Optional image for the attribute
+
+      - **`alt`**
+
+        `string` — Alt text
+
+      - **`colorinvertable`**
+
+        `boolean` — Indicates if colors can be inverted
+
+      - **`contenttype`**
+
+        `string` — Content type
+
+      - **`height`**
+
+        `number` — Image height
+
+      - **`src`**
+
+        `string` — Image URL
+
+      - **`themes`**
+
+        `string` — Themes metadata
+
+      - **`title`**
+
+        `string` — Image title
+
+      - **`type`**
+
+        `string` — Image type identifier
+
+      - **`width`**
+
+        `number` — Image width
+
+  - **`category`**
+
+    `string` — Infobox category
+
+  - **`content`**
+
+    `string` — Infobox content
+
+  - **`engine`**
+
+    `string` — Engine providing the infobox
+
+  - **`engines`**
+
+    `array` — Engines contributing to the infobox
+
+    **Items:**
+
+    `string`
+
+  - **`id`**
+
+    `string` — Infobox identifier
+
+  - **`img_src`**
+
+    `string` — Primary image URL
+
+  - **`parsed_url`**
+
+    `array | null` — Parsed URL parts
+
+  - **`positions`**
+
+    `object` — Positions across engines
+
+  - **`priority`**
+
+    `string` — Priority value if provided
+
+  - **`publishedDate`**
+
+    `string | null` — Published date if available
+
+  - **`score`**
+
+    `number` — Infobox score if available
+
+  - **`template`**
+
+    `string` — Template used to render the infobox
+
+  - **`thumbnail`**
+
+    `string` — Thumbnail URL
+
+  - **`title`**
+
+    `string` — Infobox title (displayed)
+
+  - **`url`**
+
+    `string`, format: `uri` — Canonical URL if present
+
+  - **`urls`**
+
+    `array` — Links related to the infobox
+
+    **Items:**
+
+    - **`title` (required)**
+
+      `string` — URL label
+
+    - **`url` (required)**
+
+      `string`, format: `uri` — URL
+
+    - **`official`**
+
+      `boolean` — Marks official links
+
+- **`number_of_results` (required)**
+
+  `integer` — If engine supports paging, 0 means unlimited numbers of pages. The value is only applied if the engine itself does not have a max value that is lower than this one
+
+- **`query` (required)**
+
+  `string` — The search query
+
+- **`results` (required)**
+
+  `array` — List of search results
+
+  **Items:**
+
+  - **`content` (required)**
+
+    `string` — Snippet shown for the result
+
+  - **`engine` (required)**
+
+    `string` — Primary engine delivering the result
+
+  - **`title` (required)**
+
+    `string` — Result title
+
+  - **`url` (required)**
+
+    `string`, format: `uri` — Result URL
+
+  - **`category`**
+
+    `string` — Result category if available
+
+  - **`engines`**
+
+    `array` — Engines contributing this result
+
+    **Items:**
+
+    `string`
+
+  - **`img_src`**
+
+    `string` — Image source URL if available
+
+  - **`parsed_url`**
+
+    `array` — Parsed URL parts
+
+    **Items:**
+
+    `string`
+
+  - **`positions`**
+
+    `array` — Result ranks across engines
+
+    **Items:**
+
+    `number`
+
+  - **`priority`**
+
+    `string` — Priority value if provided
+
+  - **`pubdate`**
+
+    `string` — Alternate published date format
+
+  - **`publishedDate`**
+
+    `string | null` — Published date if available
+
+  - **`score`**
+
+    `number` — Relevance score
+
+  - **`template`**
+
+    `string`
+
+  - **`thumbnail`**
+
+    `string` — Thumbnail URL if present
+
+- **`suggestions` (required)**
+
+  `array` — Autocomplete suggestions if provided
+
+  **Items:**
+
+- **`unresponsive_engines` (required)**
+
+  `array` — List of unresponsive engines
+
+  **Items:**
+
+  `array`
+
+**Example:**
+
+```json
+{
+  "query": "",
+  "number_of_results": 0,
+  "results": [
+    {
+      "template": "",
+      "url": "",
+      "title": "",
+      "content": "",
+      "publishedDate": null,
+      "thumbnail": "",
+      "engine": "",
+      "parsed_url": [
+        ""
+      ],
+      "img_src": "",
+      "priority": "",
+      "engines": [
+        ""
+      ],
+      "positions": [
+        1
+      ],
+      "score": 1,
+      "category": "",
+      "pubdate": ""
+    }
+  ],
+  "answers": [
+    {
+      "url": "",
+      "engine": "",
+      "parsed_url": [
+        ""
+      ],
+      "template": "",
+      "answer": "",
+      "title": "",
+      "thumbnail": ""
+    }
+  ],
+  "corrections": [],
+  "infoboxes": [
+    {
+      "infobox": "",
+      "id": "",
+      "content": "",
+      "img_src": "",
+      "urls": [
+        {
+          "title": "",
+          "url": "",
+          "official": true
+        }
+      ],
+      "engine": "",
+      "url": "",
+      "template": "",
+      "parsed_url": [
+        ""
+      ],
+      "title": "",
+      "thumbnail": "",
+      "priority": "",
+      "engines": [
+        ""
+      ],
+      "positions": "",
+      "score": 1,
+      "category": "",
+      "publishedDate": null,
+      "attributes": [
+        {
+          "label": "",
+          "value": "",
+          "entity": "",
+          "image": {
+            "src": "",
+            "alt": "",
+            "title": "",
+            "width": 1,
+            "height": 1,
+            "type": "",
+            "themes": "",
+            "colorinvertable": true,
+            "contenttype": ""
+          }
+        }
+      ]
+    }
+  ],
+  "suggestions": [],
+  "unresponsive_engines": [
+    []
+  ]
+}
+```
+
+###### Content-Type: application/rss+xml
+
+- **`channel` (required)**
+
+  `object` — RSS channel metadata
+
+  - **`description` (required)**
+
+    `string` — Channel description
+
+  - **`item` (required)**
+
+    `array` — Entries contained in the channel
+
+    **Items:**
+
+    - **`guid` (required)**
+
+      `string` — Stable entry identifier
+
+    - **`link` (required)**
+
+      `string`, format: `uri` — Entry link
+
+    - **`title` (required)**
+
+      `string` — Entry title
+
+    - **`category`**
+
+      `string` — Entry category
+
+    - **`description`**
+
+      `string` — Entry summary
+
+    - **`pubDate`**
+
+      `string` — Publication date (RFC 822)
+
+  - **`link` (required)**
+
+    `string`, format: `uri` — Channel link
+
+  - **`title` (required)**
+
+    `string` — Channel title
+
+  - **`docs`**
+
+    `string`, format: `uri` — Documentation URL for RSS
+
+  - **`generator`**
+
+    `string` — Feed generator identifier
+
+  - **`language`**
+
+    `string` — Language tag for the feed
+
+  - **`lastBuildDate`**
+
+    `string` — Last build timestamp (RFC 822)
+
+- **`version`**
+
+  `string`, possible values: `"2.0"` — RSS version attribute
+
+**Example:**
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rss>
+  <version>2.0</version>
+  <channel>
+    <title></title>
+    <link></link>
+    <description></description>
+    <language></language>
+    <generator></generator>
+    <docs></docs>
+    <lastBuildDate></lastBuildDate>
+    <item>
+      <title></title>
+      <link></link>
+      <guid></guid>
+      <pubDate></pubDate>
+      <description></description>
+      <category></category>
+    </item>
+  </channel>
+</rss>
+```
+
+###### Content-Type: application/csv
+
+`string`, format: `binary`
+
+**Example:**
+
+```json
+{}
+```
