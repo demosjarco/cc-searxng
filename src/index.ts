@@ -1,4 +1,5 @@
 import { Container, getRandom } from '@cloudflare/containers';
+import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import type { EnvVars, HonoVariables } from '~/types.mjs';
 
@@ -22,7 +23,7 @@ export class ContainerSidecar extends Container<EnvVars> {
 
 export default {
 	async fetch(request, env, ctx) {
-		const app = await import('hono').then(({ Hono }) => new Hono<{ Bindings: EnvVars; Variables: HonoVariables }>());
+		const app = new Hono<{ Bindings: EnvVars; Variables: HonoVariables }>();
 
 		// Security
 		app.use(
