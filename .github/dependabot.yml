@@ -75,6 +75,7 @@ updates:
         patterns:
           - 'hono'
           - '@hono/*'
+          - '@scalar/*'
       typescript-core:
         patterns:
           - 'typescript'
