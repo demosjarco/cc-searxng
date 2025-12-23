@@ -60,7 +60,6 @@ jobs:
         run: |
           sed -i "s|cf_account_id: .*|cf_account_id: \"${{ secrets.CF_ACCOUNT_ID }}\"|" searxng/settings.yml
           sed -i "s|cf_ai_api: .*|cf_ai_api: \"${{ secrets.API_CF_API_TOKEN }}\"|" searxng/settings.yml
-          sed -i "s|api_key: 'CF_COMMUNITY_KEY'|cf_ai_api: \"${{ secrets.CF_COMMUNITY_KEY }}\"|" searxng/settings.yml
       - uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
         id: wrangler
         with:

@@ -2587,16 +2587,6 @@ engines:
     timeout: 4.0
     disabled: true
 
-  - name: cf community
-    engine: discourse
-    shortcut: cf
-    base_url: 'https://community.cloudflare.com/'
-    api_order: latest_topic
-    categories: ['social media', 'it']
-    show_avatar: true
-    api_username: 'free999'
-    api_key: 'CF_COMMUNITY_KEY'
-
   - name: woot
     engine: woot
     shortcut: woot
