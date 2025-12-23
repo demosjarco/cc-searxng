@@ -16,7 +16,7 @@
 		"type": "git",
 		"url": "git+https://github.com/demosjarco/cc-searxng.git"
 	},
-	"author": "demosjarco",
+	"author": "demosjarco <1209494+demosjarco@users.noreply.github.com>",
 	"license": "MIT",
 	"private": true,
 	"bugs": {
