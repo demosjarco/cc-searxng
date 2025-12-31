@@ -17,7 +17,7 @@ await unstable_startWorker({
 	build: {
 		minify: true,
 		keepNames: false,
-		nodejsCompatMode: 'v1',
+		nodejsCompatMode: 'v2',
 	},
 	dev: {
 		inspector: false,

@@ -6,3 +6,7 @@ export interface EnvVars extends Secrets, Cloudflare.Env {
 interface Secrets {
 	CF_API_TOKEN: string;
 }
+
+export interface ContextVariables {
+	requestDate: Date;
+}
