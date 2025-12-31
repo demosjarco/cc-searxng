@@ -27,6 +27,8 @@
 	"dependencies": {
 		"@cloudflare/containers": "^0.0.31",
 		"@hono/zod-openapi": "^1.2.0",
+		"@modelcontextprotocol/sdk": "^1.25.1",
+		"agents": "^0.3.3",
 		"hono": "^4.11.1",
 		"validator": "^13.15.26"
 	},
