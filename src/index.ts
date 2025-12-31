@@ -1,9 +1,11 @@
 import { getRandom } from '@cloudflare/containers';
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
+import { SearchMCP } from '~/mcp.mjs';
 import type { EnvVars } from '~/types.mjs';
 
 export { ContainerSidecar } from '~/do.mjs';
+export { SearchMCP } from '~/mcp.mjs';
 
 export default {
 	async fetch(request, env, ctx) {
@@ -25,6 +27,31 @@ export default {
 		);
 
 		await import('~routes/index.mjs').then(({ default: baseApp }) => app.route('/', baseApp));
+
+		app.on(['GET', 'POST'], '/sse', (c) =>
+			SearchMCP.serveSSE('/sse').fetch(
+				c.req.raw,
+				c.env,
+				// @ts-expect-error mismatch types but ok
+				c.executionCtx,
+			),
+		);
+		app.on(['GET', 'POST'], '/sse/message', (c) =>
+			SearchMCP.serveSSE('/sse').fetch(
+				c.req.raw,
+				c.env,
+				// @ts-expect-error mismatch types but ok
+				c.executionCtx,
+			),
+		);
+		app.on(['GET', 'POST'], '/mcp', (c) =>
+			SearchMCP.serve('/mcp').fetch(
+				c.req.raw,
+				c.env,
+				// @ts-expect-error mismatch types but ok
+				c.executionCtx,
+			),
+		);
 
 		app.all('*', (c) => getRandom(c.env.CONTAINER_SIDECAR, 10).then((stub) => stub.fetch(c.req.url, c.req.raw)));
 
