@@ -53,7 +53,7 @@ jobs:
       - run: npm run build:types:cf
       - run: git commit -m "Generate cf types" worker-configuration.d.ts || echo "No type generation done"
       - run: git push
-        continue-on-error: false
+        continue-on-error: true
       - run: echo "wrangler_version=$(npm ls wrangler --depth=0 --json | jq -r '.dependencies.wrangler.version')" >> $GITHUB_OUTPUT
         id: npm_wrangler_version
       - name: Set secrets in settings.yml
