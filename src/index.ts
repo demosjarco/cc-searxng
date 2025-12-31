@@ -9,6 +9,17 @@ export default {
 	async fetch(request, env, ctx) {
 		const app = new Hono<{ Bindings: EnvVars }>();
 
+		// Variable Setup
+		app.use('*', (c, next) =>
+			import('hono/context-storage').then(({ contextStorage }) =>
+				contextStorage()(
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+					c,
+					next,
+				),
+			),
+		);
+
 		// Security
 		app.use(
 			'*',
@@ -25,6 +36,8 @@ export default {
 		);
 
 		await import('~routes/index.mjs').then(({ default: baseApp }) => app.route('/', baseApp));
+
+		app.all('/mcp', (c) => Promise.all([import('agents/mcp'), import('~/mcp.mjs')]).then(([{ createMcpHandler }, { server }]) => createMcpHandler(server)(c.req.raw, env, ctx)));
 
 		app.all('*', (c) => getRandom(c.env.CONTAINER_SIDECAR, 10).then((stub) => stub.fetch(c.req.url, c.req.raw)));
 
