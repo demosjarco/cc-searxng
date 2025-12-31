@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment || github.ref_name }}
-      url: https://${{ (inputs.environment || vars.ENVIRONMENT) != 'production' && format('{0}.', (inputs.environment || vars.ENVIRONMENT)) || '' }}search.demosjarco.dev
+      url: https://search.demosjarco.dev
     permissions:
       contents: write
     steps:
