@@ -29,7 +29,7 @@ server.registerTool(
 		}),
 		outputSchema: z4.object({
 			results: z4.array(
-				z4.object({
+				z4.looseObject({
 					template: z4.string().trim().optional(),
 					url: z4
 						.url({ protocol: /^https?$/, hostname: z4.regexes.domain })
