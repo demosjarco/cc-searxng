@@ -37,8 +37,6 @@ jobs:
           check-latest: true
           cache: 'npm'
       - run: npm ci --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.PRIVATE_READ_NPM_TOKEN }}
       - run: npm run-script install --if-present
       - run: npm run publish:static
         env:
