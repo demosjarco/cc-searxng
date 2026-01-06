@@ -26,17 +26,9 @@
 
   **Items:**
 
-  - **`answer` (required)**
-
-    `string` — Extracted answer text
-
-  - **`engine` (required)**
+  - **`engine`**
 
     `string` — Engine providing the answer
-
-  - **`url` (required)**
-
-    `string`, format: `uri` — Answer source URL
 
   - **`parsed_url`**
 
@@ -46,17 +38,9 @@
 
     `string`
 
-  - **`template`**
+  - **`url`**
 
-    `string` — Template used to render the answer
-
-  - **`thumbnail`**
-
-    `string` — Thumbnail URL if present
-
-  - **`title`**
-
-    `string` — Answer title if present
+    `string`, format: `uri` — A link related to this \*result\*
 
 - **`corrections` (required)**
 
@@ -64,101 +48,39 @@
 
   **Items:**
 
+  `string`
+
 - **`infoboxes` (required)**
 
   `array` — Infoboxes compiled from engines
 
   **Items:**
 
-  - **`infobox` (required)**
-
-    `string` — Infobox title
-
-  - **`attributes`**
-
-    `array` — Attributes contained in the infobox
-
-    **Items:**
-
-    - **`label` (required)**
-
-      `string` — Attribute label
-
-    - **`value` (required)**
-
-      `string` — Attribute value
-
-    - **`entity`**
-
-      `string` — Wikidata entity ID if available
-
-    - **`image`**
-
-      `object` — Optional image for the attribute
-
-      - **`alt`**
-
-        `string` — Alt text
-
-      - **`colorinvertable`**
-
-        `boolean` — Indicates if colors can be inverted
-
-      - **`contenttype`**
-
-        `string` — Content type
-
-      - **`height`**
-
-        `number` — Image height
-
-      - **`src`**
-
-        `string` — Image URL
-
-      - **`themes`**
-
-        `string` — Themes metadata
-
-      - **`title`**
-
-        `string` — Image title
-
-      - **`type`**
-
-        `string` — Image type identifier
-
-      - **`width`**
-
-        `number` — Image width
+  **All of:**
 
   - **`category`**
 
-    `string` — Infobox category
+    `string`
 
   - **`content`**
 
-    `string` — Infobox content
+    `string`
 
   - **`engine`**
 
-    `string` — Engine providing the infobox
+    `string`
 
   - **`engines`**
 
-    `array` — Engines contributing to the infobox
+    `array`, default: `[]`
 
     **Items:**
 
     `string`
 
-  - **`id`**
-
-    `string` — Infobox identifier
-
   - **`img_src`**
 
-    `string` — Primary image URL
+    `string`
 
   - **`parsed_url`**
 
@@ -166,57 +88,59 @@
 
   - **`positions`**
 
-    `object` — Positions across engines
+    `object`
 
   - **`priority`**
 
-    `string` — Priority value if provided
+    `string`, possible values: `"", "high", "low"`, default: `""`
+
+  - **`pubdate`**
+
+    `string`
 
   - **`publishedDate`**
 
-    `string | null` — Published date if available
+    `string | null`
 
   - **`score`**
 
-    `number` — Infobox score if available
+    `number`, default: `0`
 
   - **`template`**
 
-    `string` — Template used to render the infobox
+    `string`, default: `"default.html"`
 
   - **`thumbnail`**
 
-    `string` — Thumbnail URL
+    `string`
 
   - **`title`**
 
-    `string` — Infobox title (displayed)
+    `string`
 
   - **`url`**
 
-    `string`, format: `uri` — Canonical URL if present
+    `string | null`, format: `uri`
 
-  - **`urls`**
+  * **`attributes` (required)**
 
-    `array` — Links related to the infobox
+    `array`
 
     **Items:**
 
-    - **`title` (required)**
+  * **`infobox` (required)**
 
-      `string` — URL label
+    `string`
 
-    - **`url` (required)**
+  * **`urls` (required)**
 
-      `string`, format: `uri` — URL
+    `array`
 
-    - **`official`**
-
-      `boolean` — Marks official links
+    **Items:**
 
 - **`number_of_results` (required)**
 
-  `integer` — If engine supports paging, 0 means unlimited numbers of pages. The value is only applied if the engine itself does not have a max value that is lower than this one
+  `integer` — Average number of results reported by engines
 
 - **`query` (required)**
 
@@ -224,41 +148,17 @@
 
 - **`results` (required)**
 
-  `array` — List of search results
+  `array` — List of search results (typed or legacy)
 
   **Items:**
 
-  - **`content` (required)**
+  **Any of:**
 
-    `string` — Snippet shown for the result
+  **All of:**
 
-  - **`engine` (required)**
+  - **`engine`**
 
-    `string` — Primary engine delivering the result
-
-  - **`title` (required)**
-
-    `string` — Result title
-
-  - **`url` (required)**
-
-    `string`, format: `uri` — Result URL
-
-  - **`category`**
-
-    `string` — Result category if available
-
-  - **`engines`**
-
-    `array` — Engines contributing this result
-
-    **Items:**
-
-    `string`
-
-  - **`img_src`**
-
-    `string` — Image source URL if available
+    `string` — Engine providing the answer
 
   - **`parsed_url`**
 
@@ -268,43 +168,161 @@
 
     `string`
 
-  - **`positions`**
+  - **`url`**
 
-    `array` — Result ranks across engines
+    `string`, format: `uri` — A link related to this \*result\*
+
+  * **`audio_src`**
+
+    `string` — URL of an embedded \`\<audio controls>\`
+
+  * **`author`**
+
+    `string` — Author of the title
+
+  * **`category`**
+
+    `string` — Result category if available
+
+  * **`content`**
+
+    `string` — Extract or description of the result item
+
+  * **`engines`**
+
+    `array`, default: `[]` — In a merged results list, the names of the engines that found this result are listed in this field
 
     **Items:**
 
-    `number`
+    `string`
 
-  - **`priority`**
+  * **`iframe_src`**
 
-    `string` — Priority value if provided
+    `string` — URL of an embedded \`\<iframe>\` / the frame is collapsible
 
-  - **`pubdate`**
+  * **`img_src`**
 
-    `string` — Alternate published date format
+    `string` — URL of a image that is displayed in the result item
 
-  - **`publishedDate`**
+  * **`length`**
 
-    `string | null` — Published date if available
+    `number` — Playing duration in seconds
 
-  - **`score`**
+  * **`metadata`**
 
-    `number` — Relevance score
+    `string` — Miscellaneous metadata
 
-  - **`template`**
+  * **`positions`**
+
+    `array`, default: `[]` — Result ranks across engines
+
+    **Items:**
+
+    `integer`
+
+  * **`priority`**
+
+    `string`, possible values: `"", "high", "low"`, default: `""` — The priority can be set via :ref:\`hostnames plugin\`, for example
+
+  * **`pubdate`**
+
+    `string` — String representation of \`MainResult.publishedDate\`. Deprecated: it is still partially used in the templates, but will one day be completely eliminated.
+
+  * **`publishedDate`**
+
+    `string | null` — The date on which the object was published
+
+  * **`score`**
+
+    `number`, default: `0` — Relevance score
+
+  * **`template`**
+
+    `string`, default: `"default.html"` — Name of the template used to render the result
+
+  * **`thumbnail`**
+
+    `string` — URL of a thumbnail that is displayed in the result item
+
+  * **`title`**
+
+    `string` — Link title of the result item
+
+  * **`views`**
+
+    `string` — View count in humanized number format
+
+  - **`category`**
 
     `string`
 
+  - **`content`**
+
+    `string`
+
+  - **`engine`**
+
+    `string`
+
+  - **`engines`**
+
+    `array`, default: `[]`
+
+    **Items:**
+
+    `string`
+
+  - **`img_src`**
+
+    `string`
+
+  - **`parsed_url`**
+
+    `array | null` — Parsed URL parts
+
+  - **`positions`**
+
+    `object`
+
+  - **`priority`**
+
+    `string`, possible values: `"", "high", "low"`, default: `""`
+
+  - **`pubdate`**
+
+    `string`
+
+  - **`publishedDate`**
+
+    `string | null`
+
+  - **`score`**
+
+    `number`, default: `0`
+
+  - **`template`**
+
+    `string`, default: `"default.html"`
+
   - **`thumbnail`**
 
-    `string` — Thumbnail URL if present
+    `string`
+
+  - **`title`**
+
+    `string`
+
+  - **`url`**
+
+    `string | null`, format: `uri`
 
 - **`suggestions` (required)**
 
   `array` — Autocomplete suggestions if provided
 
   **Items:**
+
+  `string`
 
 - **`unresponsive_engines` (required)**
 
@@ -322,27 +340,29 @@
   "number_of_results": 0,
   "results": [
     {
-      "template": "",
       "url": "",
-      "title": "",
-      "content": "",
-      "publishedDate": null,
-      "thumbnail": "",
       "engine": "",
       "parsed_url": [
         ""
       ],
+      "template": "default.html",
+      "title": "",
+      "content": "",
       "img_src": "",
+      "iframe_src": "",
+      "audio_src": "",
+      "thumbnail": "",
+      "publishedDate": null,
+      "pubdate": "",
+      "length": 1,
+      "views": "",
+      "author": "",
+      "metadata": "",
       "priority": "",
-      "engines": [
-        ""
-      ],
-      "positions": [
-        1
-      ],
-      "score": 1,
-      "category": "",
-      "pubdate": ""
+      "engines": [],
+      "positions": [],
+      "score": 0,
+      "category": ""
     }
   ],
   "answers": [
@@ -351,64 +371,47 @@
       "engine": "",
       "parsed_url": [
         ""
-      ],
-      "template": "",
-      "answer": "",
-      "title": "",
-      "thumbnail": ""
+      ]
     }
   ],
-  "corrections": [],
+  "corrections": [
+    ""
+  ],
   "infoboxes": [
     {
-      "infobox": "",
-      "id": "",
-      "content": "",
-      "img_src": "",
-      "urls": [
-        {
-          "title": "",
-          "url": "",
-          "official": true
-        }
-      ],
+      "url": null,
+      "template": "default.html",
       "engine": "",
-      "url": "",
-      "template": "",
       "parsed_url": [
         ""
       ],
       "title": "",
+      "content": "",
+      "img_src": "",
       "thumbnail": "",
       "priority": "",
-      "engines": [
-        ""
-      ],
-      "positions": "",
-      "score": 1,
+      "engines": [],
+      "positions": [],
+      "score": 0,
       "category": "",
       "publishedDate": null,
+      "pubdate": "",
+      "infobox": "",
+      "urls": [
+        {
+          "propertyName*": ""
+        }
+      ],
       "attributes": [
         {
-          "label": "",
-          "value": "",
-          "entity": "",
-          "image": {
-            "src": "",
-            "alt": "",
-            "title": "",
-            "width": 1,
-            "height": 1,
-            "type": "",
-            "themes": "",
-            "colorinvertable": true,
-            "contenttype": ""
-          }
+          "propertyName*": ""
         }
       ]
     }
   ],
-  "suggestions": [],
+  "suggestions": [
+    ""
+  ],
   "unresponsive_engines": [
     []
   ]
@@ -517,4 +520,142 @@
 
 ```json
 {}
+```
+
+## Schemas
+
+### Result
+
+- **Type:**`object`
+
+Base class of all result types
+
+- **`engine`**
+
+  `string` — Engine providing the answer
+
+- **`parsed_url`**
+
+  `array` — Parsed URL parts
+
+  **Items:**
+
+  `string`
+
+- **`url`**
+
+  `string`, format: `uri` — A link related to this \*result\*
+
+**Example:**
+
+```json
+{
+  "url": "",
+  "engine": "",
+  "parsed_url": [
+    ""
+  ]
+}
+```
+
+### MainResult
+
+- **Type:**
+
+Base class of all result types displayed in area main results
+
+**Example:**
+
+### LegacyResult
+
+- **Type:**`object`
+
+A wrapper around a legacy result item. The SearXNG core uses this class for untyped dictionaries / to be downward compatible. This class is needed until we have implemented an `Result` class for each result type and the old usages in the codebase have been fully migrated.
+
+- **`category`**
+
+  `string`
+
+- **`content`**
+
+  `string`
+
+- **`engine`**
+
+  `string`
+
+- **`engines`**
+
+  `array`, default: `[]`
+
+  **Items:**
+
+  `string`
+
+- **`img_src`**
+
+  `string`
+
+- **`parsed_url`**
+
+  `array | null` — Parsed URL parts
+
+- **`positions`**
+
+  `object`
+
+- **`priority`**
+
+  `string`, possible values: `"", "high", "low"`, default: `""`
+
+- **`pubdate`**
+
+  `string`
+
+- **`publishedDate`**
+
+  `string | null`
+
+- **`score`**
+
+  `number`, default: `0`
+
+- **`template`**
+
+  `string`, default: `"default.html"`
+
+- **`thumbnail`**
+
+  `string`
+
+- **`title`**
+
+  `string`
+
+- **`url`**
+
+  `string | null`, format: `uri`
+
+**Example:**
+
+```json
+{
+  "url": null,
+  "template": "default.html",
+  "engine": "",
+  "parsed_url": [
+    ""
+  ],
+  "title": "",
+  "content": "",
+  "img_src": "",
+  "thumbnail": "",
+  "priority": "",
+  "engines": [],
+  "positions": [],
+  "score": 0,
+  "category": "",
+  "publishedDate": null,
+  "pubdate": ""
+}
 ```

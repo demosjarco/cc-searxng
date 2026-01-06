@@ -91,121 +91,104 @@ const input = z.object({
 		.openapi({ description: 'List of disabled engines' }),
 });
 
+/**
+ * @link https://github.com/searxng/searxng/blob/3d88876a32addc8a1d1be8cf8afe8f9136a1571d/searx/result_types/_base.py#L228-L335
+ */
+const Result = z
+	.object({
+		url: z
+			.url({ protocol: /^https?$/, hostname: z.regexes.domain })
+			.trim()
+			.nonempty()
+			.optional()
+			.openapi({ description: 'A link related to this *result*' }),
+		engine: z.string().trim().nonempty().optional().openapi({ description: 'Engine providing the answer' }),
+		parsed_url: z.array(z.string().trim()).optional().openapi({ description: 'Parsed URL parts' }),
+	})
+	.openapi('Result', { description: 'Base class of all result types' });
+
+/**
+ * @link https://github.com/searxng/searxng/blob/3d88876a32addc8a1d1be8cf8afe8f9136a1571d/searx/result_types/_base.py#L228-L335
+ */
+const MainResult = Result.extend({
+	template: z.string().trim().default('default.html').openapi({ description: 'Name of the template used to render the result' }),
+	title: z.string().trim().optional().openapi({ description: 'Link title of the result item' }),
+	content: z.string().trim().optional().openapi({ description: 'Extract or description of the result item' }),
+	img_src: z.string().trim().optional().openapi({ description: 'URL of a image that is displayed in the result item' }),
+	iframe_src: z.string().trim().optional().openapi({ description: 'URL of an embedded `<iframe>` / the frame is collapsible' }),
+	audio_src: z.string().trim().optional().openapi({ description: 'URL of an embedded `<audio controls>`' }),
+	thumbnail: z.string().trim().optional().openapi({ description: 'URL of a thumbnail that is displayed in the result item' }),
+	publishedDate: z.string().trim().nullable().optional().openapi({ description: 'The date on which the object was published' }),
+	pubdate: z.string().trim().optional().openapi({ description: 'String representation of `MainResult.publishedDate`. Deprecated: it is still partially used in the templates, but will one day be completely eliminated.' }),
+	length: z.number().optional().openapi({ description: 'Playing duration in seconds' }),
+	views: z.string().trim().optional().openapi({ description: 'View count in humanized number format' }),
+	author: z.string().trim().optional().openapi({ description: 'Author of the title' }),
+	metadata: z.string().trim().optional().openapi({ description: 'Miscellaneous metadata' }),
+	priority: z.enum(['', 'high', 'low']).default('').openapi({ description: 'The priority can be set via :ref:`hostnames plugin`, for example' }),
+	engines: z.array(z.string().trim().nonempty()).default([]).openapi({ description: 'In a merged results list, the names of the engines that found this result are listed in this field' }),
+	positions: z.array(z.int().nonnegative()).default([]).openapi({ description: 'Result ranks across engines' }),
+	score: z.number().default(0).openapi({ description: 'Relevance score' }),
+	category: z.string().trim().optional().openapi({ description: 'Result category if available' }),
+}).openapi('MainResult', { description: 'Base class of all result types displayed in area main results' });
+
+/**
+ * @link https://github.com/searxng/searxng/blob/3d88876a32addc8a1d1be8cf8afe8f9136a1571d/searx/result_types/_base.py#L427-L572
+ */
+const LegacyResult = z
+	.object({
+		url: z
+			.url({ protocol: /^https?$/, hostname: z.regexes.domain })
+			.trim()
+			.nonempty()
+			.nullish(),
+		template: z.string().trim().default('default.html'),
+		engine: z.string().trim().nonempty().optional(),
+		parsed_url: z.array(z.string().trim()).nullish().openapi({ description: 'Parsed URL parts' }),
+		title: z.string().trim().optional(),
+		content: z.string().trim().optional(),
+		img_src: z.string().trim().optional(),
+		thumbnail: z.string().trim().optional(),
+		priority: z.enum(['', 'high', 'low']).default(''),
+		engines: z.array(z.string().trim().nonempty()).default([]),
+		positions: z.union([z.array(z.int().nonnegative()).default([]), z.literal('')]),
+		score: z.number().default(0),
+		category: z.string().trim().optional(),
+		publishedDate: z.string().trim().nullable().optional(),
+		pubdate: z.string().trim().optional(),
+	})
+	.openapi('LegacyResult', { description: 'A wrapper around a legacy result item. The SearXNG core uses this class for untyped dictionaries / to be downward compatible. This class is needed until we have implemented an `Result` class for each result type and the old usages in the codebase have been fully migrated.' });
+
 export const jsonOutput = z.object({
 	query: z.string().trim().nonempty().openapi({ description: 'The search query' }),
-	number_of_results: z.int().nonnegative().openapi({ description: 'If engine supports paging, 0 means unlimited numbers of pages. The value is only applied if the engine itself does not have a max value that is lower than this one' }),
-	results: z
-		.array(
-			z.object({
-				template: z.string().trim().optional(),
-				url: z
-					.url({ protocol: /^https?$/, hostname: z.regexes.domain })
-					.trim()
-					.nonempty()
-					.openapi({ description: 'Result URL' }),
-				title: z.string().trim().nonempty().openapi({ description: 'Result title' }),
-				content: z.string().trim().openapi({ description: 'Snippet shown for the result' }),
-				publishedDate: z.string().trim().nullable().optional().openapi({ description: 'Published date if available' }),
-				thumbnail: z.string().trim().optional().openapi({ description: 'Thumbnail URL if present' }),
-				engine: z.string().trim().nonempty().openapi({ description: 'Primary engine delivering the result' }),
-				parsed_url: z.array(z.string().trim()).optional().openapi({ description: 'Parsed URL parts' }),
-				img_src: z.string().trim().optional().openapi({ description: 'Image source URL if available' }),
-				priority: z.string().trim().optional().openapi({ description: 'Priority value if provided' }),
-				engines: z.array(z.string().trim().nonempty()).optional().openapi({ description: 'Engines contributing this result' }),
-				positions: z.array(z.number()).optional().openapi({ description: 'Result ranks across engines' }),
-				score: z.number().optional().openapi({ description: 'Relevance score' }),
-				category: z.string().trim().optional().openapi({ description: 'Result category if available' }),
-				pubdate: z.string().trim().optional().openapi({ description: 'Alternate published date format' }),
-			}),
-		)
-		.openapi({ description: 'List of search results' }),
-	answers: z
-		.array(
-			z.object({
-				url: z
-					.url({ protocol: /^https?$/, hostname: z.regexes.domain })
-					.trim()
-					.nonempty()
-					.openapi({ description: 'Answer source URL' }),
-				engine: z.string().trim().nonempty().openapi({ description: 'Engine providing the answer' }),
-				parsed_url: z.array(z.string().trim()).optional().openapi({ description: 'Parsed URL parts' }),
-				template: z.string().trim().optional().openapi({ description: 'Template used to render the answer' }),
-				answer: z.string().trim().nonempty().openapi({ description: 'Extracted answer text' }),
-				title: z.string().trim().optional().openapi({ description: 'Answer title if present' }),
-				thumbnail: z.string().trim().optional().openapi({ description: 'Thumbnail URL if present' }),
-			}),
-		)
-		.openapi({ description: 'Direct answers returned by engines' }),
-	corrections: z.array(z.unknown()).openapi({ description: 'Query corrections suggested by engines' }),
+	number_of_results: z.int().nonnegative().openapi({ description: 'Average number of results reported by engines' }),
+	/**
+	 * @link https://github.com/searxng/searxng/blob/3d88876a32addc8a1d1be8cf8afe8f9136a1571d/searx/results.py#L59
+	 */
+	results: z.array(z.union([MainResult, LegacyResult])).openapi({ description: 'List of search results (typed or legacy)' }),
+	/**
+	 * @link https://github.com/searxng/searxng/blob/master/searx/results.py#L62
+	 */
+	answers: z.array(Result).openapi({ description: 'Direct answers returned by engines' }),
+	/**
+	 * @link https://github.com/searxng/searxng/blob/master/searx/results.py#L63
+	 */
+	corrections: z.array(z.string()).openapi({ description: 'Query corrections suggested by engines' }),
+	/**
+	 * @link https://github.com/searxng/searxng/blob/master/searx/results.py#L60
+	 */
 	infoboxes: z
 		.array(
-			z.object({
-				infobox: z.string().trim().nonempty().openapi({ description: 'Infobox title' }),
-				id: z.string().trim().optional().openapi({ description: 'Infobox identifier' }),
-				content: z.string().trim().optional().openapi({ description: 'Infobox content' }),
-				img_src: z.string().trim().optional().openapi({ description: 'Primary image URL' }),
-				urls: z
-					.array(
-						z.object({
-							title: z.string().trim().nonempty().openapi({ description: 'URL label' }),
-							url: z
-								.url({ protocol: /^https?$/, hostname: z.regexes.domain })
-								.trim()
-								.nonempty()
-								.openapi({ description: 'URL' }),
-							official: z.boolean().optional().openapi({ description: 'Marks official links' }),
-						}),
-					)
-					.optional()
-					.openapi({ description: 'Links related to the infobox' }),
-				engine: z.string().trim().optional().openapi({ description: 'Engine providing the infobox' }),
-				url: z
-					.url({ protocol: /^https?$/, hostname: z.regexes.domain })
-					.trim()
-					.nonempty()
-					.optional()
-					.openapi({ description: 'Canonical URL if present' }),
-				template: z.string().trim().optional().openapi({ description: 'Template used to render the infobox' }),
-				parsed_url: z.array(z.string().trim()).nullable().optional().openapi({ description: 'Parsed URL parts' }),
-				title: z.string().trim().optional().openapi({ description: 'Infobox title (displayed)' }),
-				thumbnail: z.string().trim().optional().openapi({ description: 'Thumbnail URL' }),
-				priority: z.string().trim().optional().openapi({ description: 'Priority value if provided' }),
-				engines: z.array(z.string().trim().nonempty()).optional().openapi({ description: 'Engines contributing to the infobox' }),
-				positions: z
-					.union([z.string().trim(), z.array(z.number()), z.array(z.string())])
-					.optional()
-					.openapi({ description: 'Positions across engines' }),
-				score: z.number().optional().openapi({ description: 'Infobox score if available' }),
-				category: z.string().trim().optional().openapi({ description: 'Infobox category' }),
-				publishedDate: z.string().trim().nullable().optional().openapi({ description: 'Published date if available' }),
-				attributes: z
-					.array(
-						z.object({
-							label: z.string().trim().nonempty().openapi({ description: 'Attribute label' }),
-							value: z.string().trim().openapi({ description: 'Attribute value' }),
-							entity: z.string().trim().optional().openapi({ description: 'Wikidata entity ID if available' }),
-							image: z
-								.object({
-									src: z.string().trim().optional().openapi({ description: 'Image URL' }),
-									alt: z.string().trim().optional().openapi({ description: 'Alt text' }),
-									title: z.string().trim().optional().openapi({ description: 'Image title' }),
-									width: z.number().optional().openapi({ description: 'Image width' }),
-									height: z.number().optional().openapi({ description: 'Image height' }),
-									type: z.string().trim().optional().openapi({ description: 'Image type identifier' }),
-									themes: z.string().trim().optional().openapi({ description: 'Themes metadata' }),
-									colorinvertable: z.boolean().optional().openapi({ description: 'Indicates if colors can be inverted' }),
-									contenttype: z.string().trim().optional().openapi({ description: 'Content type' }),
-								})
-								.optional()
-								.openapi({ description: 'Optional image for the attribute' }),
-						}),
-					)
-					.optional()
-					.openapi({ description: 'Attributes contained in the infobox' }),
+			LegacyResult.extend({
+				infobox: z.string().trim().nonempty(),
+				urls: z.array(z.record(z.string(), z.string())),
+				attributes: z.array(z.record(z.string(), z.string())),
 			}),
 		)
 		.openapi({ description: 'Infoboxes compiled from engines' }),
-	suggestions: z.array(z.unknown()).openapi({ description: 'Autocomplete suggestions if provided' }),
+	/**
+	 * @link https://github.com/searxng/searxng/blob/master/searx/results.py#L61
+	 */
+	suggestions: z.array(z.string()).openapi({ description: 'Autocomplete suggestions if provided' }),
 	unresponsive_engines: z.array(z.tuple([z.string().trim().nonempty().openapi({ description: 'Engine name' }), z.string().trim().nonempty().openapi({ description: 'Error message' })])).openapi({ description: 'List of unresponsive engines' }),
 });
 
