@@ -181,10 +181,16 @@ plugins:
   searx.plugins.calculator.SXNGPlugin:
     active: true
 
+  searx.plugins.infinite_scroll.SXNGPlugin:
+    active: true
+
   searx.plugins.hash_plugin.SXNGPlugin:
     active: true
 
   searx.plugins.self_info.SXNGPlugin:
+    active: true
+
+  searx.plugins.tracker_url_remover.SXNGPlugin:
     active: true
 
   searx.plugins.unit_converter.SXNGPlugin:
@@ -200,9 +206,6 @@ plugins:
     active: true
 
   searx.plugins.tor_check.SXNGPlugin:
-    active: true
-
-  searx.plugins.tracker_url_remover.SXNGPlugin:
     active: true
 
 # Configuration of the "Hostnames plugin":
