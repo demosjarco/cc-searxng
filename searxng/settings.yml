@@ -142,7 +142,7 @@ outgoing:
   pool_connections: 100
   # Allow the connection pool to maintain keep-alive connections below this
   # point.
-  pool_maxsize: 20
+  pool_maxsize: 100
   # CC currently has issues
   enable_http2: false
   # uncomment below section if you want to use a custom server certificate
