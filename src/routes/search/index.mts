@@ -276,7 +276,7 @@ app.openapi(
 			c.req.valid('query'),
 		).toString();
 
-		return getRandom(c.env.CONTAINER_SIDECAR, 10).then((stub) => stub.fetch(url, new Request(url, c.req.raw)));
+		return getRandom(c.env.CONTAINER_SIDECAR, 10).then((stub) => stub.fetch(new Request(url, c.req.raw)));
 	},
 );
 
