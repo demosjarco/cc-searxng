@@ -38,7 +38,7 @@ export default {
 
 		await import('~routes/index.mjs').then(({ default: baseApp }) => app.route('/', baseApp));
 
-		app.all('/mcp', (c) => Promise.all([import('agents/mcp'), import('~/mcp.mjs')]).then(([{ createMcpHandler }, { server }]) => createMcpHandler(server)(c.req.raw, env, ctx)));
+		app.all('/mcp', (c) => Promise.all([import('agents/mcp'), import('~/mcp.mjs')]).then(([{ createMcpHandler }, { createServer }]) => createMcpHandler(createServer())(c.req.raw, env, ctx)));
 
 		app.all('*', (c) => import('@cloudflare/containers').then(({ getRandom }) => getRandom(c.env.CONTAINER_SIDECAR, 10).then((stub) => stub.fetch(c.req.url, c.req.raw))));
 
