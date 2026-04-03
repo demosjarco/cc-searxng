@@ -135,7 +135,7 @@ export function createServer(): McpServer {
 					if (response.ok) {
 						return response.json<z4.output<typeof searchZodOutput>>().then(({ results, answers, corrections, infoboxes, suggestions }) => {
 							const json = {
-								results,
+								results: results.map(({ parsed_url, ...result }) => result),
 								answers,
 								corrections,
 								infoboxes: infoboxes.filter((infobox) => infobox.engine !== 'cloudflareai'),
