@@ -11,7 +11,7 @@
 	"keep_names": false,
 	"upload_source_maps": true,
 	"observability": { "logs": { "enabled": true }, "traces": { "enabled": true } },
-	"limits": { "cpu_ms": 10 },
+	"limits": { "cpu_ms": 10, "subrequests": 10000000 },
 	// Bindings
 	"assets": {
 		"directory": "./dist",
