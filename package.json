@@ -25,7 +25,7 @@
 	"homepage": "https://github.com/demosjarco/cc-searxng#readme",
 	"prettier": "@demosjarco/prettier-config",
 	"dependencies": {
-		"@cloudflare/containers": "^0.2.2",
+		"@cloudflare/containers": "^0.3.0",
 		"@hono/zod-openapi": "^1.2.4",
 		"agents": "^0.9.0",
 		"hono": "^4.12.10",
@@ -45,6 +45,6 @@
 		"tsx": "^4.21.0",
 		"typescript": "^6.0.2",
 		"typescript-eslint": "^8.58.0",
-		"wrangler": "^4.80.0"
+		"wrangler": "^4.81.1"
 	}
 }
