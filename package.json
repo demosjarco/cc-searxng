@@ -28,7 +28,7 @@
 		"@cloudflare/containers": "^0.2.2",
 		"@hono/zod-openapi": "^1.2.4",
 		"agents": "^0.9.0",
-		"hono": "^4.12.10",
+		"hono": "^4.12.14",
 		"validator": "^13.15.35"
 	},
 	"devDependencies": {
