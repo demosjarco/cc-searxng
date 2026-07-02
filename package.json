@@ -25,26 +25,26 @@
 	"homepage": "https://github.com/demosjarco/cc-searxng#readme",
 	"prettier": "@demosjarco/prettier-config",
 	"dependencies": {
-		"@cloudflare/containers": "^0.2.2",
-		"@hono/zod-openapi": "^1.2.4",
-		"agents": "^0.9.0",
-		"hono": "^4.12.10",
-		"validator": "^13.15.35"
+		"@cloudflare/containers": "0.2.2",
+		"@hono/zod-openapi": "1.2.4",
+		"agents": "0.9.0",
+		"hono": "4.12.10",
+		"validator": "13.15.35"
 	},
 	"devDependencies": {
-		"@demosjarco/prettier-config": "^1.0.2",
-		"@eslint/js": "^10.0.1",
-		"@microsoft/eslint-formatter-sarif": "^3.1.0",
-		"@scalar/openapi-to-markdown": "^0.4.16",
-		"@types/node": "^25.5.0",
-		"@types/validator": "^13.15.10",
-		"cloudflare": "^5.2.0",
-		"eslint": "^10.1.0",
-		"eslint-config-prettier": "^10.1.8",
-		"prettier": "^3.8.1",
-		"tsx": "^4.21.0",
-		"typescript": "^6.0.2",
-		"typescript-eslint": "^8.58.0",
-		"wrangler": "^4.80.0"
+		"@demosjarco/prettier-config": "1.0.2",
+		"@eslint/js": "10.0.1",
+		"@microsoft/eslint-formatter-sarif": "3.1.0",
+		"@scalar/openapi-to-markdown": "0.4.16",
+		"@types/node": "25.5.0",
+		"@types/validator": "13.15.10",
+		"cloudflare": "5.2.0",
+		"eslint": "10.1.0",
+		"eslint-config-prettier": "10.1.8",
+		"prettier": "3.8.1",
+		"tsx": "4.21.0",
+		"typescript": "6.0.2",
+		"typescript-eslint": "8.58.0",
+		"wrangler": "4.80.0"
 	}
 }
