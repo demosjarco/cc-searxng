@@ -95,7 +95,7 @@ const input = z.object({
  * @link https://github.com/searxng/searxng/blob/3d88876a32addc8a1d1be8cf8afe8f9136a1571d/searx/result_types/_base.py#L228-L335
  */
 const Result = z
-	.object({
+	.looseObject({
 		url: z
 			.url({ protocol: /^https?$/, hostname: z.regexes.domain })
 			.trim()
@@ -135,7 +135,7 @@ const MainResult = Result.extend({
  * @link https://github.com/searxng/searxng/blob/3d88876a32addc8a1d1be8cf8afe8f9136a1571d/searx/result_types/_base.py#L427-L572
  */
 const LegacyResult = z
-	.object({
+	.looseObject({
 		url: z
 			.url({ protocol: /^https?$/, hostname: z.regexes.domain })
 			.trim()
