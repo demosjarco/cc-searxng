@@ -15,7 +15,7 @@ export function createServer(): McpServer {
 	/**
 	 * @link https://github.com/searxng/searxng/blob/3d88876a32addc8a1d1be8cf8afe8f9136a1571d/searx/result_types/_base.py#L228-L335
 	 */
-	const Result = z4.object({
+	const Result = z4.looseObject({
 		url: z4
 			.url({ protocol: /^https?$/, hostname: z4.regexes.domain })
 			.trim()
@@ -37,8 +37,8 @@ export function createServer(): McpServer {
 		thumbnail: z4.string().trim().nullish(),
 		publishedDate: z4.string().trim().nullable().optional(),
 		pubdate: z4.string().trim().optional(),
-		length: z4.number().optional(),
-		views: z4.string().trim().optional(),
+		length: z4.coerce.number().optional(),
+		views: z4.coerce.number().optional(),
 		author: z4.string().trim().optional(),
 		metadata: z4.string().trim().optional(),
 		priority: z4.enum(['', 'high', 'low']).default(''),
@@ -51,7 +51,7 @@ export function createServer(): McpServer {
 	/**
 	 * @link https://github.com/searxng/searxng/blob/3d88876a32addc8a1d1be8cf8afe8f9136a1571d/searx/result_types/_base.py#L427-L572
 	 */
-	const LegacyResult = z4.object({
+	const LegacyResult = z4.looseObject({
 		url: z4
 			.url({ protocol: /^https?$/, hostname: z4.regexes.domain })
 			.trim()
@@ -66,7 +66,7 @@ export function createServer(): McpServer {
 		thumbnail: z4.string().trim().nullish(),
 		priority: z4.enum(['', 'high', 'low']).default(''),
 		engines: z4.array(z4.string().trim().nonempty()).default([]),
-		positions: z4.union([z4.array(z4.int().nonnegative()).default([]), z4.literal('')]),
+		positions: z4.union([z4.array(z4.coerce.number().int().nonnegative()).default([]), z4.string().default('')]),
 		score: z4.number().default(0),
 		category: z4.string().trim().optional(),
 		publishedDate: z4.string().trim().nullable().optional(),
@@ -106,10 +106,22 @@ export function createServer(): McpServer {
 				 * @link https://github.com/searxng/searxng/blob/master/searx/results.py#L60
 				 */
 				infoboxes: z4.array(
-					LegacyResult.extend({
+					z4.looseObject({
+						template: z4.string().trim().default('default.html'),
+						title: z4.string().trim().optional(),
+						content: z4.string().trim().optional(),
+						thumbnail: z4.string().trim().nullish(),
 						infobox: z4.string().trim().nonempty(),
-						urls: z4.array(z4.record(z4.string(), z4.string())),
-						attributes: z4.array(z4.record(z4.string(), z4.string())),
+						urls: z4.array(z4.object({ title: z4.string().trim(), url: z4.string().trim() })).optional(),
+						img_src: z4.string().trim().optional(),
+						engines: z4.array(z4.string().trim().nonempty()).default([]),
+						priority: z4.enum(['', 'high', 'low']).default(''),
+						attributes: z4.array(z4.record(z4.string(), z4.any())).optional(),
+						positions: z4.union([z4.array(z4.coerce.number().int().nonnegative()).default([]), z4.string().default('')]),
+						score: z4.coerce.number().default(0),
+						category: z4.string().trim().optional(),
+						publishedDate: z4.string().trim().nullable().optional(),
+						pubdate: z4.string().trim().optional(),
 					}),
 				),
 				/**
