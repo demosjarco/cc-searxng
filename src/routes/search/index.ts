@@ -1,6 +1,6 @@
 import { getRandom } from '@cloudflare/containers';
 import { createRoute, OpenAPIHono, z } from '@hono/zod-openapi';
-import type { EnvVars } from '~/types.mjs';
+import type { EnvVars } from '~/types.js';
 
 const app = new OpenAPIHono<{ Bindings: EnvVars }>();
 
@@ -276,7 +276,7 @@ app.openapi(
 			c.req.valid('query'),
 		).toString();
 
-		return getRandom(c.env.CONTAINER_SIDECAR, 10).then((stub) => stub.fetch(new Request(url, c.req.raw)));
+		return getRandom(c.env.CONTAINER_SIDECAR, 25).then((stub) => stub.fetch(new Request(url, c.req.raw)));
 	},
 );
 

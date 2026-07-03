@@ -1,5 +1,5 @@
 import { Container } from '@cloudflare/containers';
-import type { EnvVars } from '~/types.mjs';
+import type { EnvVars } from '~/types.js';
 
 export class ContainerSidecar extends Container<EnvVars> {
 	override defaultPort = 8080;

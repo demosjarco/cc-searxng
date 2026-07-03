@@ -7,7 +7,7 @@ on:
     paths:
       - '.github/workflows/publish-apig.yml'
       - 'dist/*.cf-apig.openapi.json'
-      - 'apiGateway.mts'
+      - 'apiGateway.ts'
   workflow_dispatch:
 
 permissions:

@@ -10,8 +10,8 @@
 	"minify": true,
 	"keep_names": false,
 	"upload_source_maps": true,
-	"observability": { "logs": { "enabled": true }, "traces": { "enabled": true } },
-	"limits": { "cpu_ms": 10, "subrequests": 10000000 },
+	"observability": { "logs": { "enabled": true, "persist": false }, "traces": { "enabled": true, "persist": false } },
+	"limits": { "cpu_ms": 250, "subrequests": 10000000 },
 	// Bindings
 	"assets": {
 		"directory": "./dist",
@@ -23,10 +23,10 @@
 			"class_name": "ContainerSidecar",
 			"instance_type": {
 				"vcpu": 1,
-				"memory_mib": 4096,
-				"disk_mb": 8000
+				"memory_mib": 3072,
+				"disk_mb": 6000
 			},
-			"max_instances": 10,
+			"max_instances": 25,
 			"name": "searxng"
 		}
 	],

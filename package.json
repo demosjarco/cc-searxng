@@ -9,8 +9,8 @@
 		"start": "wrangler dev",
 		"build:types:cf": "wrangler types",
 		"postbuild:types:cf": "prettier --write worker-configuration.d.ts",
-		"build:static": "tsx staticApi.mts",
-		"publish:static": "tsx apiGateway.mts"
+		"build:static": "tsx staticApi.ts",
+		"publish:static": "tsx apiGateway.ts"
 	},
 	"repository": {
 		"type": "git",

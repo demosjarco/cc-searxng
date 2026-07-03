@@ -2,8 +2,8 @@ import { getRandom } from '@cloudflare/containers';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { getContext } from 'hono/context-storage';
 import * as z4 from 'zod/v4';
-import type { jsonOutput as searchZodOutput } from '~/routes/search/index.mjs';
-import type { EnvVars } from '~/types.mjs';
+import type { jsonOutput as searchZodOutput } from '~/routes/search/index.js';
+import type { EnvVars } from '~/types.js';
 
 export function createServer(): McpServer {
 	const server = new McpServer({

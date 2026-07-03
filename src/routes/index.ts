@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import search from '~/routes/search/index.mjs';
-import type { EnvVars } from '~/types.mjs';
+import search from '~/routes/search/index.js';
+import type { EnvVars } from '~/types.js';
 
 const app = new OpenAPIHono<{ Bindings: EnvVars }>();
 
