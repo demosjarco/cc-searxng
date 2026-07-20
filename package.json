@@ -27,7 +27,7 @@
 	"dependencies": {
 		"@cloudflare/containers": "0.3.7",
 		"@hono/zod-openapi": "1.4.0",
-		"agents": "0.17.3",
+		"agents": "0.17.4",
 		"hono": "4.12.27",
 		"validator": "13.15.35"
 	},
